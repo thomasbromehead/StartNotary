@@ -40,12 +40,12 @@ class Block {
         return new Promise((resolve, reject) => {
             // Save in auxiliary variable the current block hash
             let currentHash = self.hash;
-            console.log("CURRENT HASH: ", currentHash);
+            // Create a clone of the object and set its hash to null as it was
+            // when the block was first hashed.
+            let duplicate = {...self};
+            duplicate.hash = null;
             // Recalculate the hash of the Block
-            let newHash = SHA256(JSON.stringify(self)).toString();
-            console.log("NEW HASH: ", newHash);
-            console.log("HASHES ARE THE SAME: ", currentHash === newHash);
-            // Comparing if the hashes changed
+            let newHash = SHA256(JSON.stringify(duplicate)).toString();
             if(currentHash == newHash){
               resolve(true);
             } else {

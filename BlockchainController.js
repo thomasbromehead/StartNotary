@@ -19,6 +19,7 @@ class BlockchainController {
         this.getStarsByOwner();
         this.getChainHeight();
         this.validateChain();
+        this.modifyBlock();
     }
 
     // Enpoint to Get a Block by Height (GET Endpoint)
@@ -140,6 +141,22 @@ class BlockchainController {
               return res.status(500).send(error);
           }
         });
+    }
+
+    modifyBlock() {
+      this.app.put("/modifyblock/:hash", async (req, res) => {
+        if(req.params.hash && req.body.data){
+          const hash = req.params.hash;
+          try {
+            let block = await this.blockchain.modifyBlock(hash, req.body.data);
+            return res.status(200).send("Block modified successfully");
+          } catch(err) {
+            return res.status(500).send(err);
+          }
+        } else {
+          res.status(500).send("Check your request parameters");
+        }
+      });
     }
  }
 

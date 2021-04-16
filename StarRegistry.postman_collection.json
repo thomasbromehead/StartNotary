@@ -1,0 +1,194 @@
+{
+	"info": {
+		"_postman_id": "b28adc4a-0804-4c76-bf09-3d71d04202eb",
+		"name": "Star Registry",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "RequestValidation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"address\": \"asdasd\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/requestValidation",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"requestValidation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SubmitStar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"body\" : {\"address\": 3, \"message\": \"ELLE VA BIEN\", \"signature\": \"asdada\", \"star\": \"adsas\" }}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/submitStar",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"submitStar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBlockByHeight",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBlockByHash",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetStarsByOwner",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetChainHeight",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/chain/height",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"chain",
+						"height"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ValidateChain",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/validatechain",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"validatechain"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ModifyBlock",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "block",
+			"value": "0"
+		},
+		{
+			"key": "base_url",
+			"value": "localhost:8000"
+		},
+		{
+			"key": "address",
+			"value": "mzmuhR9jJrGSYCevKLjsP2sAadaufzvQHo"
+		},
+		{
+			"key": "hash",
+			"value": "dbcc0fcd66b9a0af8a1e632d41f5b202ff31b16c5bd7c4b9efcc880334f33cae"
+		},
+		{
+			"key": "star1",
+			"value": "{\n\"dec\": \"68° 52' 56.9\",\n\"ra\": \"16h 29m 1.0s\",\n\"story\": \"Beautiful Star\"\n}"
+		},
+		{
+			"key": "star2",
+			"value": "{\n\"dec\": \"79° 22' 94.7\",\n\"ra\": \"23h 29m 3.0s\",\n\"story\": \"Beautiful Star 2\"\n}"
+		},
+		{
+			"key": "star3",
+			"value": "{\n\"dec\": \"89° 12' 54.7\",\n\"ra\": \"12h 59m 8.0s\",\n\"story\": \"Beautiful Star 3\"\n}"
+		},
+		{
+			"key": "star4",
+			"value": "{\n\"dec\": \"92° 55' 54.7\",\n\"ra\": \"09h 29m 8.0s\",\n\"story\": \"Beautiful Star 4 new owner\"\n}"
+		}
+	]
+}

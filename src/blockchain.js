@@ -63,7 +63,6 @@ class Blockchain {
      * that this method is a private method.
      */
     _addBlock(block) {
-        let self = this;
         return new Promise(async (resolve, reject) => {
           try {
             if(this.height > 0){
@@ -114,7 +113,6 @@ class Blockchain {
      * @param {*} star
      */
     async submitStar(address, message, signature, star) {
-        let self = this;
         let messageIssuedAt = parseInt(message.split(':')[1]);
         let validTime = await this._checkValidTimeSpan(messageIssuedAt);
         return new Promise( async (res, rej) => {
@@ -180,7 +178,6 @@ class Blockchain {
      * @param {*} address
      */
     getStarsByWalletAddress (address) {
-        let self = this;
         let stars = [];
         return new Promise( async (resolve, reject) => {
           for(let i = 0; i < this.height; i++){
@@ -203,15 +200,24 @@ class Blockchain {
      * 2. Each Block should check the with the previousBlockHash
      */
     validateChain() {
-        let self = this;
         let errorLog = [];
         return new Promise(async (resolve, reject) => {
+          // Check all but the last block
           for(let i = 1; i < this.height - 1; i++){
-            console.log("I: ", i);
-            console.log("VALIDATING", this.chain[i - 1].hash);
             await this.chain[i - 1].validate().catch(err => errorLog.push(err));
           }
-         errorLog.length == 0 ? resolve("VALID CHAIN") : reject({ "errors": errorLog })
+         errorLog.length == 0 ? resolve("Valid Chain") : reject({ "errors": errorLog })
+        })
+    }
+
+      modifyBlock(hash, data) {
+        return new Promise( async (resolve, reject) => {
+          let block = await this.getBlockByHash(hash);
+          if(block){
+            block.data = Buffer(JSON.stringify(data)).toString('hex');
+            block.hash = SHA256(JSON.stringify(block)).toString();
+            resolve(block);
+          } else { throw("Block not found") }
         })
     }
 }
