@@ -119,8 +119,13 @@ class Blockchain {
           if (validTime) {
             let validSig = bitcoinMessage.verify(message, address, signature);
             if (validSig) {
-              let block = await this._addBlock(new BlockClass.Block({"star": star, "owner": address}));
-              res(block);
+              let chainStatus = await this.validateChain().catch(err => err);
+              if (chainStatus.success){
+                let block = await this._addBlock(new BlockClass.Block({"star": star, "owner": address}));
+                res(block);
+              } else {
+                rej("The chain is broken, this block cannot be added");
+              }
             } else {
               rej("Invalid Signature, cannot add this block to the chain");
             }
@@ -145,7 +150,7 @@ class Blockchain {
     getBlockByHash(hash) {
         let self = this;
         return new Promise((resolve, reject) => {
-          let block = self.chain.filter(b => b.hash == hash)[0];
+          let block = self.chain.find(b => b.hash == hash);
           if (block) {
             resolve(block);
           } else {
@@ -162,7 +167,7 @@ class Blockchain {
     getBlockByHeight(height) {
         let self = this;
         return new Promise((resolve, reject) => {
-            let block = self.chain.filter(p => p.height === height)[0];
+            let block = self.chain.find(p => p.height === height);
             if(block){
                 resolve(block);
             } else {
@@ -206,7 +211,7 @@ class Blockchain {
           for(let i = 1; i < this.height - 1; i++){
             await this.chain[i - 1].validate().catch(err => errorLog.push(err));
           }
-         errorLog.length == 0 ? resolve("Valid Chain") : reject({ "errors": errorLog })
+         errorLog.length == 0 ? resolve({success: true, message: "Valid Chain"}) : reject({success: false, message: errorLog })
         })
     }
 
